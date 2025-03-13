@@ -1,0 +1,11 @@
+﻿# Ignore everything by default
+# Whitelist only what should be tracked
+*
+!/.gitignore
+
+!/Assets
+!/Assets/**
+!/ProjectSettings
+!/ProjectSettings/**
+!/Packages
+!/Packages/**
