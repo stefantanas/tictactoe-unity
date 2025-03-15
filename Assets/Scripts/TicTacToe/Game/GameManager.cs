@@ -1,13 +1,17 @@
-﻿using TicTacToe.Game.Board;
+﻿using System;
+using TicTacToe.Game.Board;
 using UnityEngine;
 
 namespace TicTacToe.Game
 {
     public class GameManager : MonoBehaviour
     {
+        public static event Action<bool, int, Mark> NotifyUiChanges;
+
         private BoardManager _boardManager;
         private Mark _currentPlayer = Mark.X;
         private bool _isGameOver;
+        private int _movesPlayed;
 
         private void Start()
         {
@@ -28,21 +32,25 @@ namespace TicTacToe.Game
             // Find the clicked field and update its sprite
             var field = FindField(x, y);
             field?.SetMark(_currentPlayer);
+            _movesPlayed++;
 
             if (_boardManager.CheckWinCondition(_currentPlayer))
             {
                 _isGameOver = true;
+                NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
                 Debug.Log($"{_currentPlayer} wins!");
                 return;
             }
-            else if (_boardManager.CheckDrawCondition())
+            if (_boardManager.CheckDrawCondition())
             {
                 _isGameOver = true;
+                NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
                 Debug.Log("It's a draw!");
                 return;
             }
 
             SwitchTurn();
+            NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
         }
 
         private void SwitchTurn()
@@ -63,7 +71,9 @@ namespace TicTacToe.Game
         {
             _boardManager.ResetBoard();
             _isGameOver = false;
+            _movesPlayed = 0;
             _currentPlayer = Mark.X;
+            NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
 
             var fields = FindObjectsOfType<Field>();
             foreach (var field in fields)
