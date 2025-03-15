@@ -5,8 +5,8 @@ namespace TicTacToe.UserInterface.Popup
     public class BasePopup : MonoBehaviour
     {
         protected CanvasGroup PopupCanvasGroup;
-        
-        private void Start()
+
+        protected virtual void Start()
         {
             PopupCanvasGroup = GetComponent<CanvasGroup>();
         }

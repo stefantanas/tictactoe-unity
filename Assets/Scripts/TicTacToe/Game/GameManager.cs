@@ -7,6 +7,7 @@ namespace TicTacToe.Game
     public class GameManager : MonoBehaviour
     {
         public static event Action<bool, int, Mark> NotifyUiChanges;
+        public static event Action<Mark> NotifyGameOver;
 
         private BoardManager _boardManager;
         private Mark _currentPlayer = Mark.X;
@@ -38,14 +39,14 @@ namespace TicTacToe.Game
             {
                 _isGameOver = true;
                 NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
-                Debug.Log($"{_currentPlayer} wins!");
+                NotifyGameOver?.Invoke(_currentPlayer);
                 return;
             }
             if (_boardManager.CheckDrawCondition())
             {
                 _isGameOver = true;
                 NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
-                Debug.Log("It's a draw!");
+                NotifyGameOver?.Invoke(Mark.None);
                 return;
             }
 

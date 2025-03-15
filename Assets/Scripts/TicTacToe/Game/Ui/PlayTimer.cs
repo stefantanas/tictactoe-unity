@@ -77,5 +77,10 @@ namespace TicTacToe.Game.Ui
                 yield return null;
             }
         }
+
+        public TimeSpan GetTimePlaying()
+        {
+            return _timePlaying;
+        }
     }
 }
