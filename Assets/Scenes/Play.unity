@@ -1836,7 +1836,7 @@ PrefabInstance:
     - target: {fileID: 7612572280047396017, guid: 6e0a4eac3f6c75441a66f9f9abde4f07, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 571086079}
+      objectReference: {fileID: 149533171}
     - target: {fileID: 7612572280047396017, guid: 6e0a4eac3f6c75441a66f9f9abde4f07, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -1847,7 +1847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7612572280047396017, guid: 6e0a4eac3f6c75441a66f9f9abde4f07, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: TicTacToe.General.CustomSceneManager, Assembly-CSharp
+      value: TicTacToe.UserInterface.Popup.ExitPopup, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7612572280047396017, guid: 6e0a4eac3f6c75441a66f9f9abde4f07, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName

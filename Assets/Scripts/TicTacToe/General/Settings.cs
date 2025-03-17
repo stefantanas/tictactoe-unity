@@ -5,6 +5,8 @@ namespace TicTacToe.General
     public class Settings
     {
         private readonly PlayerPrefsManager _playerPrefsManager = new();
+        private const string SoundKey = "SoundEffectsEnabled";
+        private const string MusicKey = "MusicEnabled";
 
         public Settings()
         {
@@ -16,23 +18,23 @@ namespace TicTacToe.General
 
         public bool IsSoundEffectsEnabled()
         {
-            return _playerPrefsManager.Load<bool>("SoundEffectsEnabled");
+            return _playerPrefsManager.Load<bool>(SoundKey);
         }
 
         public bool IsMusicEnabled()
         {
-            return _playerPrefsManager.Load<bool>("MusicEnabled");
+            return _playerPrefsManager.Load<bool>(MusicKey);
         }
 
         public void SetSoundEffectsEnabled(bool enabled)
         {
-            _playerPrefsManager.Save("SoundEffectsEnabled", enabled);
+            _playerPrefsManager.Save(SoundKey, enabled);
             TriggerSoundEffectsChangeEvent(enabled);
         }
 
         public void SetMusicEnabled(bool enabled)
         {
-            _playerPrefsManager.Save("MusicEnabled", enabled);
+            _playerPrefsManager.Save(MusicKey, enabled);
             TriggerMusicChangeEvent(enabled);
         }
 
@@ -48,8 +50,8 @@ namespace TicTacToe.General
 
         private void SetDefaultSettings()
         {
-            _playerPrefsManager.PrepopulatePlayerPrefs("SoundEffectsEnabled", true);
-            _playerPrefsManager.PrepopulatePlayerPrefs("MusicEnabled", true);
+            _playerPrefsManager.PrepopulatePlayerPrefs(SoundKey, true);
+            _playerPrefsManager.PrepopulatePlayerPrefs(MusicKey, true);
         }
     }
 }
