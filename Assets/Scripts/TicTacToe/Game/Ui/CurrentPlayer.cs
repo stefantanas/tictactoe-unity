@@ -5,12 +5,12 @@ namespace TicTacToe.Game.Ui
 {
     public class CurrentPlayer : MonoBehaviour
     {
-        private string _currentPlayerName;
         [SerializeField] private TextMeshProUGUI currentPlayerText;
-        
+        private string _currentPlayerName;
+
         private void Start()
         {
-            currentPlayerText.text = "To Play: Player X";
+            currentPlayerText.text = "To Play: Player 1";
             GameManager.NotifyUiChanges += ProcessUiChanges;
         }
 
@@ -23,7 +23,7 @@ namespace TicTacToe.Game.Ui
         {
             if (currentPlayer != Mark.None)
             {
-                _currentPlayerName = currentPlayer == Mark.X ? "Player X" : "Player O";
+                _currentPlayerName = currentPlayer == Mark.X ? "Player 1" : "Player 2";
                 currentPlayerText.text = $"To Play: {_currentPlayerName}";
             }
         }

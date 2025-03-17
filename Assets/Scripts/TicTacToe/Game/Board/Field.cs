@@ -1,4 +1,5 @@
 ﻿using System;
+using TicTacToe.General;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,6 @@ namespace TicTacToe.Game.Board
 {
     public class Field : MonoBehaviour
     {
-        public static event Action<int, int> OnFieldClicked;
-
         [SerializeField] private int x;
         [SerializeField] private int y;
         [SerializeField] private Image xSprite;
@@ -17,8 +16,16 @@ namespace TicTacToe.Game.Board
 
         private void Start()
         {
+            if (CustomSceneManager.Instance.SelectedXSprite != null)
+                xSprite.sprite = CustomSceneManager.Instance.SelectedXSprite;
+
+            if (CustomSceneManager.Instance.SelectedOSprite != null)
+                oSprite.sprite = CustomSceneManager.Instance.SelectedOSprite;
+
             ResetField();
         }
+
+        public static event Action<int, int> OnFieldClicked;
 
         public void SelectField()
         {

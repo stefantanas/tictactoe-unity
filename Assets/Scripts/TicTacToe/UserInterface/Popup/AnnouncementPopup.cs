@@ -1,5 +1,7 @@
 ﻿using TicTacToe.Game;
 using TicTacToe.Game.Ui;
+using TicTacToe.General;
+using TicTacToe.Stats;
 using TMPro;
 using UnityEngine;
 
@@ -7,12 +9,11 @@ namespace TicTacToe.UserInterface.Popup
 {
     public class AnnouncementPopup : BasePopup
     {
-        private int _currentMoveCount;
-        private PlayTimer _playTimer;
-        
         [SerializeField] private TextMeshProUGUI announcementText;
         [SerializeField] private TextMeshProUGUI gameTimeText;
-        
+        private int _currentMoveCount;
+        private PlayTimer _playTimer;
+
 
         protected override void Start()
         {
@@ -32,21 +33,29 @@ namespace TicTacToe.UserInterface.Popup
             switch (winningPlayer)
             {
                 case Mark.X:
-                    announcementText.text = "Player X Wins!";
+                    announcementText.text = "Player 1 Wins!";
                     break;
                 case Mark.O:
-                    announcementText.text = "Player O Wins!";
+                    announcementText.text = "Player 2 Wins!";
                     break;
                 case Mark.None:
                 default:
                     announcementText.text = "It's a draw!";
                     break;
             }
-            
+
+            var playTime = _playTimer.GetTimePlaying().TotalSeconds;
+            GameStatsManager.RegisterGameResult(winningPlayer, (float)playTime);
+
             var timePlayingStr = _playTimer.GetTimePlaying().ToString("mm':'ss'.'f");
             gameTimeText.text = $"Time: {timePlayingStr}";
 
-            OpenPopup();
+            Invoke(nameof(OpenPopup), 2);
+        }
+
+        public void BackToMainMenu()
+        {
+            CustomSceneManager.Instance.SwitchToPlayScene();
         }
     }
 }

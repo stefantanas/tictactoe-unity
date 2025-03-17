@@ -9,12 +9,12 @@ namespace TicTacToe.Game.Ui
     {
         [SerializeField] private TextMeshProUGUI timerTxt;
 
-        private float _sectionCurrentTime;
-        private bool _isTimerGoing;
-        private string _timePlayingStr;
-        private TimeSpan _timePlaying;
-
         private Coroutine _coUpdateTimer;
+        private bool _isTimerGoing;
+
+        private float _sectionCurrentTime;
+        private TimeSpan _timePlaying;
+        private string _timePlayingStr;
 
         private void Start()
         {
@@ -32,13 +32,8 @@ namespace TicTacToe.Game.Ui
         private void ProcessUiChanges(bool isGameOver, int newMoveCount, Mark currentPlayer)
         {
             if (isGameOver)
-            {
                 StopTimer();
-            }
-            else if (newMoveCount == 0)
-            {
-                RestartTimer();
-            }
+            else if (newMoveCount == 0) RestartTimer();
         }
 
         public void StartTimer()

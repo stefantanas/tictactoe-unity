@@ -6,9 +6,6 @@ namespace TicTacToe.Game
 {
     public class GameManager : MonoBehaviour
     {
-        public static event Action<bool, int, Mark> NotifyUiChanges;
-        public static event Action<Mark> NotifyGameOver;
-
         private BoardManager _boardManager;
         private Mark _currentPlayer = Mark.X;
         private bool _isGameOver;
@@ -24,6 +21,9 @@ namespace TicTacToe.Game
         {
             Field.OnFieldClicked -= HandleFieldClick;
         }
+
+        public static event Action<bool, int, Mark> NotifyUiChanges;
+        public static event Action<Mark> NotifyGameOver;
 
         private void HandleFieldClick(int x, int y)
         {
@@ -42,6 +42,7 @@ namespace TicTacToe.Game
                 NotifyGameOver?.Invoke(_currentPlayer);
                 return;
             }
+
             if (_boardManager.CheckDrawCondition())
             {
                 _isGameOver = true;

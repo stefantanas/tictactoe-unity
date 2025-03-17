@@ -5,9 +5,9 @@ namespace TicTacToe.Game.Ui
 {
     public class MoveCounter : MonoBehaviour
     {
-        private int _currentMoveCount;
         [SerializeField] private TextMeshProUGUI moveCountText;
-        
+        private int _currentMoveCount;
+
         private void Start()
         {
             moveCountText.text = "Moves: 0";
