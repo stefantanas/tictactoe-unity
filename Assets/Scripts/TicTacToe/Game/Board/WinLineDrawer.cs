@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TicTacToe.General;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace TicTacToe.Game.Board
     {
         [SerializeField] private Image winLine;
         [SerializeField] private RectTransform[] boardFields;
-        [SerializeField] private float lineThickness = 10f;
+        [SerializeField] private float lineThickness = 15f;
 
         public void DrawWinLine((int, int)[] winLinePositions)
         {
@@ -32,6 +33,7 @@ namespace TicTacToe.Game.Board
             lineRect.sizeDelta = new Vector2(0f, lineThickness);
 
             winLine.gameObject.SetActive(true);
+            GetComponent<SoundPlayer>().PlaySound();
             StartCoroutine(AnimateWinLine(lineRect, distance, 0.5f));
         }
 
