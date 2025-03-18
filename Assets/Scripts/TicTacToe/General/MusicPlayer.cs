@@ -11,7 +11,7 @@ namespace TicTacToe.General
 
         private void Awake()
         {
-            // Singleton pattern to allow no music interruptions when scene changes
+            // Singleton pattern to prevent music interruptions when scene changes
             if (Instance == null)
             {
                 Instance = this;

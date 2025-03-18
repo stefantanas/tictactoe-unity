@@ -6,6 +6,8 @@ namespace TicTacToe.Game
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] private WinLineDrawer winLineDrawer;
+
         private BoardManager _boardManager;
         private Mark _currentPlayer = Mark.X;
         private bool _isGameOver;
@@ -27,22 +29,27 @@ namespace TicTacToe.Game
 
         private void HandleFieldClick(int x, int y)
         {
+            // Ignore clicks if the game is over or the cell is already occupied.
             if (_isGameOver || !_boardManager.SetMark(x, y, _currentPlayer))
                 return;
 
-            // Find the clicked field and update its sprite
+            // Update the visual representation of the clicked field.
             var field = FindField(x, y);
             field?.SetMark(_currentPlayer);
             _movesPlayed++;
 
-            if (_boardManager.CheckWinCondition(_currentPlayer))
+            // Check for a winning line.
+            if (_boardManager.CheckWinCondition(_currentPlayer, out var winLine))
             {
                 _isGameOver = true;
                 NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
                 NotifyGameOver?.Invoke(_currentPlayer);
+
+                winLineDrawer.DrawWinLine(winLine);
                 return;
             }
 
+            // Check for a draw (i.e., board is full, with no winner).
             if (_boardManager.CheckDrawCondition())
             {
                 _isGameOver = true;
@@ -51,6 +58,7 @@ namespace TicTacToe.Game
                 return;
             }
 
+            // If no win or draw, switch the active player and notify the UI.
             SwitchTurn();
             NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
         }
@@ -75,11 +83,13 @@ namespace TicTacToe.Game
             _isGameOver = false;
             _movesPlayed = 0;
             _currentPlayer = Mark.X;
+
             NotifyUiChanges?.Invoke(_isGameOver, _movesPlayed, _currentPlayer);
 
             var fields = FindObjectsOfType<Field>();
-            foreach (var field in fields)
-                field.ResetField();
+            foreach (var field in fields) field.ResetField();
+
+            winLineDrawer.ClearWinLine();
         }
     }
 }

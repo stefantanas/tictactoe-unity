@@ -30,26 +30,7 @@ namespace TicTacToe.Game.Board
         public void SelectField()
         {
             if (_isMarked) return;
-
             OnFieldClicked?.Invoke(x, y);
-        }
-
-        public void SetMark(Mark mark)
-        {
-            if (_isMarked) return; // Prevent double marking
-
-            _isMarked = true;
-            if (mark == Mark.X)
-                SetSpriteVisible(xSprite);
-            else if (mark == Mark.O) SetSpriteVisible(oSprite);
-        }
-
-        private void SetSpriteVisible(Image sprite)
-        {
-            if (sprite == null) return;
-            var color = sprite.color;
-            color.a = 1f; // Make sprite fully visible
-            sprite.color = color;
         }
 
         public void ResetField()
@@ -59,11 +40,30 @@ namespace TicTacToe.Game.Board
             SetSpriteInvisible(oSprite);
         }
 
+        public void SetMark(Mark mark)
+        {
+            if (_isMarked) return;
+
+            _isMarked = true;
+            if (mark == Mark.X)
+                SetSpriteVisible(xSprite);
+            else if (mark == Mark.O)
+                SetSpriteVisible(oSprite);
+        }
+
+        private void SetSpriteVisible(Image sprite)
+        {
+            if (sprite == null) return;
+            var color = sprite.color;
+            color.a = 1f;
+            sprite.color = color;
+        }
+
         private void SetSpriteInvisible(Image sprite)
         {
             if (sprite == null) return;
             var color = sprite.color;
-            color.a = 0f; // Hide sprite
+            color.a = 0f;
             sprite.color = color;
         }
 
